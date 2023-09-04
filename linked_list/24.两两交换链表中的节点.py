@@ -57,5 +57,21 @@
 #         self.next = next
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy_head = ListNode(next = head)
+
+        #需要一个指针
+        current = dummy_head
+        while current.next and current.next.next: #两两交换，一定确保current的后两个有
+
+            temp1 = current.next #1
+            temp2 = current.next.next.next #3 
+
+
+            current.next = current.next.next
+            current.next.next = temp1 #1
+            temp1.next = temp2 #3
+
+            current = current.next.next#移动两步
+        return dummy_head.next #返回新的列表的头
 # @lc code=end
 

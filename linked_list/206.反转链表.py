@@ -64,5 +64,21 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+       #此处不能用dummy_head val=None,因为1最终指向的就是None，直接初始化pre为None即可，不然报错
+       # 删： # dummy_head = ListNode(next=head,val =None) #初始化dummyhead，并且因为反转后1指向null，所以value=none
+        cur , pre = head, None
+        
+        while cur:
+            temp = cur.next# 先保存一下2，不然会断了
+            cur.next = pre #让 1 指向none，此时1->2的链接断了
+            pre = cur #先移动pre=1，在移动cur，不然cur动了，pre没法依赖
+            cur = temp #移动cur往后一位
+
+
+        
+        return pre
+
+
+
 # @lc code=end
 

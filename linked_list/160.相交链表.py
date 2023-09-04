@@ -113,6 +113,37 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        #先找出两个链表长度，然后对比，让长链表移动diff个单位，从而两个链表对齐。此时两个指针一起移动，
+        # 直到移动到null之前仙童的head，那就是有交点，否则没有
+
+        #精简版
+        lenA , lenB = 0,0
+        curA , curB = headA, headB
+
+        while curA:
+            curA= curA.next
+            lenA +=1
+        while curB:
+            curB=curB.next
+            lenB+=1 
+        
+        curA , curB = headA, headB
+        #判断长度，并且对齐
+        for i in range(abs(lenA-lenB)):
+            if lenA > lenB:
+                curA = curA.next
+            else:#len ab相等时，range不返回，直接不动，所以else就行
+                curB = curB.next
+
+        while curA:
+
+            if curA == curB:
+                return curA# 对齐后刚好相等直接返回
+            #不然的话两者一起动,直到null---末尾
+            curA = curA.next
+            curB = curB.next
+        return None
+
         
 # @lc code=end
 

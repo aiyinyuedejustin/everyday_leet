@@ -57,5 +57,18 @@
 #         self.next = next
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        #这个要用dummyhead, 因为可能删第一个元素，需要一个指向
+        dummy_head = ListNode(next = head)
+        current = dummy_head
+
+        while current.next:
+            if current.next.val == val:
+                current.next = current.next.next
+            else:#注意这个else一定要写，也就是对于[1,2,2,3]来说，如果不写这个else，直接删除了2 后让current移动，那么就会错过第二个2
+                current = current.next
+        return dummy_head.next
+
+
+
 # @lc code=end
 

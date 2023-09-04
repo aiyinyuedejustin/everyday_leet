@@ -63,5 +63,20 @@
 #         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        #删除哪个，一定需要他之前的那个节点
+        #因为要返回链表的头节点，需要一个虚拟节点
+        dummy_head= ListNode(next=head)
+        #需要一个fast指针移动n+1个单位，然后跟slow一起移动到fast=None.此时slow的下标刚好是要删除的元素的前一个
+        slow, fast = dummy_head, dummy_head #一定要初始化为虚拟头，不然要删除第一个元素时，初始化为head就没用了。删除哪个一定需要他之前那个
+        for i in range(n+1):
+            fast = fast.next
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        
+
+        slow.next= slow.next.next
+        return dummy_head.next 
+
 # @lc code=end
 
