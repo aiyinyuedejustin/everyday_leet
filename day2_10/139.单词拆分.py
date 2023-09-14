@@ -68,7 +68,7 @@ class Solution:
         # eg s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
         # 先分cats，然后 and, 剩一个og，不太行。如果分cat，然后sand，然后og，还是不行。这让我们把og过了两遍
         #为了避免，应该用set，避免重复，使用一个visited set。如果之前遇到过，就不搞了，省时间 
-        queue =  collections.deque([s]) #会加入整个str
+        queue =  collections.deque([s]) #会加入整个str，双端队列允许在两端都进行添加和删除操作
         #collections.deque([s]) 的意思是创建一个 deque 对象并初始化它，使其包含一个元素，即字符串 s。
         #使用 deque 主要是为了实现广度优先搜索（BFS）
 
