@@ -86,9 +86,9 @@ class Solution:
         # m n last 都是index，也可以当做指针
 
         # 1. last index in nums1
-        last = m+n -1 #用于填数字的指针,初始于nums1的0的最后一位
+        last = m+n -1 #用于填数字的指针,初始于nums1的0的最后一位. 
         #2. merge in reverse order
-        while m>0 and n>0 : #index必须合法，m是nums1 本身数字  的length
+        while m>0 and n>0 : #index必须合法，m是nums1 本身数字  的length。 必须用and
             if nums1[m-1] >nums2[n-1]: 
                 nums1[last] = nums1[m-1] #按升序排，所以谁大就填谁
                 m -=1 #左指针移动,谁大就动那个指针往前移动

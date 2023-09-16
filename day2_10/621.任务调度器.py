@@ -94,7 +94,7 @@ class Solution:
         # 数量最多的先走,这样可以在他冷却的时候process 其他的，省时间
         maxHeap = [-cnt for cnt in count.values()] #由于python的heap默认是minheap，我们要加个负号，这样-3就在最顶端
         #maxHeap = [-3, -3, -1]
-        heapq.heapify(maxHeap) #将列表转换为堆。
+        heapq.heapify(maxHeap) #将列表转换为堆。 注意这个必须要heapify，因为虽然negate了，但不一定有那个structure。后面会报错
 
         time = 0 #初始化总时间
         q = deque() #不传入东西也无所谓 # pairs of [-cnt, time_available] 初始化一个空的双端队列来存储某任务，剩余的cnt和time it becomes available
