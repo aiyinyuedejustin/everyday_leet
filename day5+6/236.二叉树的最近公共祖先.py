@@ -107,12 +107,13 @@ class Solution:
                 return
 
             if node == p or node == q: #先看node是否是p or q，自己就是自己的祖先，直接结束
+                # 通过在开始时加入这个 if 语句，可以更早地找到 p or q，并通过递归回溯来确定它们的最低共同祖先。这样做能提高算法的效率。
                 return node
             
             #不然看左边和右边
             left = dfs(node.left, p, q)
             right = dfs(node.right, p, q)
-            if left and right:  # recursion 结束后，如果左右两边都有东西，return node
+            if left and right:  # recursion 结束后，如果左右两边都有东西，return node,然后继续往上找
                 return node
             if left: #不然左边有东西就return 左边
                 return left 
@@ -121,23 +122,7 @@ class Solution:
 
         return dfs(root,p,q)
         
-# 开始执行：(示例2)
 
-# 从根节点3开始。
-# 节点3不是p（5）或q（4），所以我们进入左子树。
-# 递归进入节点5。
-# 节点5是p，所以返回节点5。
-# 递归进入节点1（右子树）。
-# 节点1不是p或q，所以我们继续。
-# 递归进入左子树节点0。
-# 节点0不是p或q，没有左子树，所以返回None。
-# 递归进入右子树节点8。
-# 节点8不是p或q，没有子节点，所以返回None。
-# 节点1的左、右子树都返回None，所以节点1返回None。
-# 现在，回到节点3。从左子树得到节点5，从右子树得到None。
-# 那么返回5， 
-# 
-# 结果：节点5是节点5和节点4的最近公共祖先。
 
 # On 每个点遍历一次
 # On (recurssion 有call stack)
