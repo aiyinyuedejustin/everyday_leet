@@ -71,7 +71,7 @@ class Solution:
         # lowest就是最上面的意思， 自己也可以是自己的祖先
         # eg1示例： 5,1 的output 是3， 因为5,1的祖先最往上是3
         # eg2示例： 5,4 的output 是4， 因为4在5的下面，5上面就没东西了，所以只能自己是自己的祖先，return 5
-        # eg2示例： 1,2 的output 是1， 因为1在3的上面，没东西了
+        # 额外示例: 1（root)-> 2 的output 是1， 因为1在2的上面，没东西了
 
 
         #注意题目给的提示：
@@ -81,44 +81,46 @@ class Solution:
         # node可以当自己的祖先
 
         #step : 用recursion 遍历树, 
-        # 0 if not root return None
-        # 1. 如果root是p or q，直接return，root，因为配对成功，自己可以是自己的祖先
-        # 2. 不然就分成左右两边，去做recursion | left = self.xx(root.left, p,q )
-        #3 。 如果左右都不是空，那return root, why? 因为要查最上面的相同祖先，比如示例1的 查到1, 5都不是空，那就return root =3 因为要往上面找
+        # 0 if not node return None
+        # 1. 如果node是p or q，直接return，node，因为配对成功，自己可以是自己的祖先
+        # 2. 不然就分成左右两边，去做recursion | left = self.xx(node.left, p,q )
+        #3 。 如果左右都不是空，那return node, why? 因为要查最上面的相同祖先，比如示例1的 查到1, 5都不是空，那就return node =3 因为要往上面找
         #4 如果左边有东西，return 左，
         #  如果右边有东西return 右
 
 
         #对示例1 举例：
         # 首先看3， 不是p or q,
-        # 先看左边是5， 刚好等于p，那么return root = 5. 再看右边是1， 刚好等于q， return root= 1
-        # return 回去之后，看左右两边有没有东西 。那么对于3， 左右两边是5和1都不是空，那还是return root = 3， 那就找到了
+        # 先看左边是5， 刚好等于p，那么return node = 5. 再看右边是1， 刚好等于q， return node= 1
+        # return 回去之后，看左右两边有没有东西 。那么对于3， 左右两边是5和1都不是空，那还是return node = 3， 那就找到了
 
         #对示例2 举例：
           # 首先看3， 不是p or q,
-          # 看左边，5，是p，那么return当前root =5， left = 5
+          # 看左边，5，是p，那么return当前node =5， left = 5
           # 看右边1，不是pq，那么继续看左右两边, 0 和 8 都不是p和q，直到null，已经无了，直接return null 回去
           #  所以对于1 ，左右两边都null， 那么1也是return null回去给3. 
           #那么对于3，左边是5， 右边是null， 根据第四步，左边有东西就reutrn 左边是5. 就找到了
 
-
+        def dfs(node, p,q ):
         #edge case
-        if not root: #停止条件
-            return
+            if not node: #停止条件
+                return
 
-        if root == p or root == q: #先看root是否是p or q，自己就是自己的祖先，直接结束
-            return root
+            if node == p or node == q: #先看node是否是p or q，自己就是自己的祖先，直接结束
+                return node
+            
+            #不然看左边和右边
+            left = dfs(node.left, p, q)
+            right = dfs(node.right, p, q)
+            if left and right:  # recursion 结束后，如果左右两边都有东西，return node
+                return node
+            if left: #不然左边有东西就return 左边
+                return left 
+            if right: #右边有东西return 右边
+                return right
+
+        return dfs(root,p,q)
         
-        #不然看左边和右边
-        left = self.lowestCommonAncestor(root.left,p,q) 
-        right = self.lowestCommonAncestor(root.right, p, q)
-        if left and right:  # recursion 结束后，如果左右两边都有东西，return root
-            return root
-        if left: #不然左边有东西就return 左边
-            return left 
-        if right: #右边有东西return 右边
-            return right
-
 # 开始执行：(示例2)
 
 # 从根节点3开始。
