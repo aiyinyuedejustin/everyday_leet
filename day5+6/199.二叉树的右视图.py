@@ -59,37 +59,6 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]: 
-        #base case 肯定是
-        if not root:
-            return []
-    
-        #用bfs, q + popleft()
-        q = deque([root])
-        res = []
-
-        while q:
-            level_length = len(q) # only iterave current level ,所以需要一个len
-
-            for i in range(level_length): #only process on that level
-                node = q.popleft()
-                if not node: #其实可以不要，前面根节点已经检查了非空if not root:。 后面对于root的剩余任何left right
-                                            # 也都是不空的时候才append，所以这个没必要
-                    continue
-
-                if i == level_length -1:
-                    res.append(node.val) #到了这个level的最后一个的时候就是最右侧的
-                if node.left: #左侧有东西（下一层的）就加进去，这样下一层可以继续搜索
-                    # 如果我们不将左右子节点加入队列，我们就无法访问和遍历树的下一层，也就无法找到每一层的最右侧节点。
-                    # 因此，if node.left: q.append(node.left) 和 if node.right: q.append(node.right) 
-                    # 这两行代码确保了我们能够遍历整棵树并找到每一层的最右侧节点。
-                    
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-        return res
-
-
-
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
 # @lc code=end
 

@@ -53,6 +53,28 @@
 #         self.right = right
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+
+        
+        # self.summ = 0
+        
+
+        # def dfs(node):
+           
+        #     if not node:
+        #         return #停止，对self.summ无影响
+        #         # 只有
+
+        #     if low <= node.val <= high:
+        #         self.summ += node.val
+        #     if node.val > low :
+        #         dfs(node.left)
+        #     if node.val <high:
+        #         dfs(node.right)
+        # dfs(root)
+        # return self.summ
+            
+
+
         # https://www.youtube.com/watch?v=_GYF0mVvtYo&ab_channel=%E4%BB%8A%E5%A4%A9%E6%AF%94%E6%98%A8%E5%A4%A9%E5%8E%B2%E5%AE%B3
         # bst的特性： 左小右大
         # 用dfs遍历每个点，
@@ -64,24 +86,24 @@ class Solution:
          
         
         #方法1： recursive
-        # self.res = 0  #使用类属性
-        # # 累加满足条件的节点的值。当我们调用 recur 函数时，它会更新 self.res。这种方法允许我们跨多次递归调用保持和更新这个累加值。
+        self.res = 0  #使用类属性
+        # 累加满足条件的节点的值。当我们调用 recur 函数时，它会更新 self.res。这种方法允许我们跨多次递归调用保持和更新这个累加值。
         
-        # def recur(node):
-        #     if not node: # 检查node是否为None 
-        #         return #直接停
+        def recur(node):
+            if not node: # 检查node是否为None 
+                return #直接停
             
-        #     if low <= node.val <= high:
-        #         self.res += node.val
+            if low <= node.val <= high:
+                self.res += node.val
                 
-        #     if node.val < high:
-        #         recur(node.right)
+            if node.val < high:
+                recur(node.right)
                 
-        #     if node.val > low:
-        #         recur(node.left)
+            if node.val > low:
+                recur(node.left)
         
-        # recur(root) #update self.res
-        # return self.res
+        recur(root) #update self.res
+        return self.res
 
 
 # o n 

@@ -93,74 +93,102 @@
     # 3. left right 是dummy node，指向最不常用，和常用的。 left.next永远是lru， right.prev是most recent
 
 
-class Node: #需要额外创建个doulbe linked list（额外添加
-   def __init__(self, key, val):
-      self.key , self.val = key, val #node自己也有key
-      self.prev = self.next = None #inital None
+# class Node: #需要额外创建个doulbe linked list（额外添加
+#    def __init__(self, key, val):
+#       self.key , self.val = key, val #node自己也有key
+#       self.prev = self.next = None #inital None
       
 
-class LRUCache:
+# class LRUCache:
  
 
 
-    def __init__(self, capacity: int):
+#     def __init__(self, capacity: int):
        
-       self.cap = capacity
-       self.cashe = {} #hashmap --- map key to node
-        #left: least recent , right: most recent
-       self.left , self.right = Node(0,0), Node(0,0) #需要个dummy，用0 initiallize
+#        self.cap = capacity
+#        self.cashe = {} #hashmap --- map key to node
+#         #left: least recent , right: most recent
+#        self.left , self.right = Node(0,0), Node(0,0) #需要个dummy，用0 initiallize
       
-       #want these know to initally connect to each other,如果要put一个新node，要put between left right
-       self.left.next, self.right.prev = self.right, self.left
+#        #want these know to initally connect to each other,如果要put一个新node，要put between left right
+#        self.left.next, self.right.prev = self.right, self.left
 
-       # left-><-right 现在长这样
+#        # left-><-right 现在长这样
 
-    def remove(self, node): #remove node from list(额外的helper)
-       # 需要当前node的前一个和后一个，然后前一个指向后一个，后一个指向前一个，中间就无了
-       prev, nxt = node.prev, node.next
-       prev.next , nxt.prev = nxt, prev
+#     def remove(self, node): #remove node from list(额外的helper)
+#        # 需要当前node的前一个和后一个，然后前一个指向后一个，后一个指向前一个，中间就无了
+#        prev, nxt = node.prev, node.next
+#        prev.next , nxt.prev = nxt, prev
        
     
-    def insert(self, node): #insert at right（额外的helper)因为每次right都是最新的most recent
-       # [1]-><-right 原来这样，要在这俩之前插入，那么就是[1]-><-【new】-><-right
-       # 【new]的上一个是原先right的上一个， 新节点的下一个就是right
-       prev, nxt = self.right.prev, self.right
-        # [1]的下一个是[new] ， right的上一个也是[new]
-       prev.next = nxt.prev = node
-       # [new]的上一个是[1], 下一个是right
-       node.prev = prev
-       node.next = nxt
+#     def insert(self, node): #insert at right（额外的helper)因为每次right都是最新的most recent
+#        # [1]-><-right 原来这样，要在这俩之前插入，那么就是[1]-><-【new】-><-right
+#        # 【new]的上一个是原先right的上一个， 新节点的下一个就是right
+#        prev, nxt = self.right.prev, self.right
+#         # [1]的下一个是[new] ， right的上一个也是[new]
+#        prev.next = nxt.prev = node
+#        # [new]的上一个是[1], 下一个是right
+#        node.prev = prev
+#        node.next = nxt
        
 
 
-    def get(self, key: int) -> int:
+#     def get(self, key: int) -> int:
         
-        if key in self.cashe: #有
-          self.remove(self.cashe[key]) #先remove 
-          self.insert(self.cashe[key]) #再insert，这样就swap到right，就成了最新的那个
-          return self.cashe[key].val 
-          # 由于cashe的value其实是pointer to node, 
-          # 所以self.cashe[key]拿到的是node，然后还要node.val
-        return -1 #如果没找到
+#         if key in self.cashe: #有
+#           self.remove(self.cashe[key]) #先remove 
+#           self.insert(self.cashe[key]) #再insert，这样就swap到right，就成了最新的那个
+#           return self.cashe[key].val 
+#           # 由于cashe的value其实是pointer to node, 
+#           # 所以self.cashe[key]拿到的是node，然后还要node.val
+#         return -1 #如果没找到
        
 
 
-    def put(self, key: int, value: int) -> None:
-        if key in self.cashe: #说明node already exist，且same key-value,其实是想remove后更新
-           self.remove(self.cashe[key]) #remove之前的
-        self.cashe[key] = Node(key,value) #更新,现在hash map 有了一个pointer to new node
-        self.insert(self.cashe[key]) #但还要insert into list，self.cashe[key] 拿出来的就是这个node 
+#     def put(self, key: int, value: int) -> None:
+#         if key in self.cashe: #说明node already exist，且same key-value,其实是想remove后更新
+#            self.remove(self.cashe[key]) #remove之前的
+#         self.cashe[key] = Node(key,value) #更新,现在hash map 有了一个pointer to new node
+#         self.insert(self.cashe[key]) #但还要insert into list，self.cashe[key] 拿出来的就是这个node 
 
-        #insert后要检查长度，长了的话让上一个不常用的作废
-        if len(self.cashe) > self.cap:
-           #remove least recent
-           lru = self.left.next #left的next就是 , lru指一个node
-           self.remove(lru) #remove from linked list
-           del self.cashe[lru.key]#del key from hash map. lru是node， node有key这个属性（看下面定义），跟hashmap里面的key相同
+#         #insert后要检查长度，长了的话让上一个不常用的作废
+#         if len(self.cashe) > self.cap:
+#            #remove least recent
+#            lru = self.left.next #left的next就是 , lru指一个node
+#            self.remove(lru) #remove from linked list
+#            del self.cashe[lru.key]#del key from hash map. lru是node， node有key这个属性（看下面定义），跟hashmap里面的key相同
            
        
 
+# 简便写法： order dict。每次更新移动到后面
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+      #   初始化一个具有给定容量 capacity 的 LRU 缓存。self.cache 是一个 OrderedDict，
+      # 用于存储缓存项。OrderedDict 会记住元素添加的顺序。
 
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+#     如果 key 不在缓存中，返回 -1。
+# 如果 key 在缓存中，使用 move_to_end() 方法将其移到有序字典的末尾。
+# 这样，最近使用的项就会在 OrderedDict 的末尾，而最近最少使用的项在开始处。
+# 返回 key 对应的值
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+#             如果 key 已经在缓存中，使用 move_to_end() 方法将其移到有序字典的末尾。
+# 无论 key 是否已经在缓存中，都将其值设置或更新为 value。
+# 如果缓存的大小超过了 capacity，则使用 popitem(last=False) 删除最早添加的（即最近最少使用的）项。
+# 这个实现使得 get 和 put 操作都具有 O1的时间复杂度。
 
 
 # Your LRUCache object will be instantiated and called as such:
