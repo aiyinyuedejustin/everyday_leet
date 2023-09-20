@@ -102,7 +102,7 @@ class Solution:
                     if odd[i] == odd[nei]: #当前节点和他nei的值一样，
                         return False # 说明在同一个set里了，直接false， not bipartite
                     elif not odd[nei]: #only nei it's not visitied we'll revise， 对应上面if odd[i]: return True
-                        q.append(nei)
+                        q.append(nei) #没检查过要加入
                         odd[nei] = -1 *odd[i] #让所有nei的值(分类) 都跟i 反着
                     #注意这里不是else
 

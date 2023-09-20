@@ -89,6 +89,37 @@ class Solution:
                         queue.append(word[len(start_word):]) #把剩余的不匹配的加入，下一轮再次处理
         return False #queue 在exhaust后，说明都visite了，说明没法匹配
     
+
+
+    # 新版本好理解：
+
+
+        q = deque() #需要一个q 来存储每次切完的东西
+        q.append(s) #初始化为q
+        visited = set() #防止memory 爆炸
+
+
+        while q:
+
+            word = q.popleft()
+            if not word: #
+                return True
+
+            if word in visited:
+                continue
+            
+            visited.add(word)
+            
+            for start_word in wordDict:
+                if word.startswith(start_word):
+                    q.append(word[len(start_word):])
+        return False
+
+
+
+
+
+    
 # O（n^3)
 # O（n)
 # s = "applepenapple"

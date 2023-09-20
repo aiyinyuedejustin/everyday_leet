@@ -76,8 +76,11 @@ class Solution:
             #     return memo[string]
             if not string: #如果string是empty list ”“
                 return [''] #return 一个empty string，说明我们已经搜索完了可以构成句子
+            #for sub_word in sub_words: 这句话必须是可迭代对象，如果只是return empty string， 这个没法操作，报错，所以只能list of empty string，这样
+            #for 出来也还是空的，是可以保证下面的能正常运行
             
-            local_res = []
+            local_res = [] #切割到最后og，如果切割不了，return的一直都是空的local res，所以最终return到最外层也还算空的。这会导致下面的sub_words一直是[]
+            #因此最后return也是空，能过得了切不干净的case
 
             for word in wordDict:
                 if string.startswith(word):

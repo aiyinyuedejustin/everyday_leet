@@ -114,7 +114,8 @@ class Solution:
         # 5。然鹅1还没跟4链接，从4开始 反着再来一遍，就能把1<->4
 
 
-        oldToNew = {} #hash map
+        oldToNew = {} #hash map， 其实是用于存储每个节点的neighbor ：  node:[nei1,nei2]这样的格式，因为我们用了递归，就是怕有的节点没连起来
+        #然而有的已经visit过了，存好了那个nei
 
         def dfs(node):
             if node in oldToNew: #if it's in hashmap, we've already cloned
