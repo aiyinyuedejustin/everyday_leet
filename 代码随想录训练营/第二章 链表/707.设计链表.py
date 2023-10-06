@@ -69,23 +69,67 @@
 # @lc code=start
 class MyLinkedList:
 
+
     def __init__(self):
+       self.dummy_head = ListNode()#自己的属性，先不填next=什么，因为一开始是空的，
+       self.size = 0#初始化为0
 
 
     def get(self, index: int) -> int:
+        # 如果目前是[10,11,12,13]
+      if index < 0 or index > (self.size-1): #index必须要合法，从0开始且不能超过index长度范围
+          return -1 #如果下标无效，则返回 -1 。
+      cur = self.dummy_head
+      for i in range(index+1):
+        cur = cur.next
+      return cur.val#定要加val！！！
+
 
 
     def addAtHead(self, val: int) -> None:
+      new_node = ListNode(val)
+      #先链接后边，再链接前面，最好这样以防出错
+      new_node.next = self.dummy_head.next #在开头加，因此永远follow dummy的下一个是新节点的下一个
+      self.dummy_head.next = new_node
+      self.size +=1 #记得加1，一开始是空的
+
 
 
     def addAtTail(self, val: int) -> None:
+      new_node = ListNode(val)
+      #需要一个指针,指向dummyhead
+      cur = self.dummy_head
+      while cur.next:#最后一位的next是none时，说明指针到了最后一位
+        cur =cur.next
+      cur.next =new_node
+      self.size +=1  #记得加1，一开始是空的
+
+
 
 
     def addAtIndex(self, index: int, val: int) -> None:
+      #n必须要合法，从0开始。如果目前是[10,11,12,13]+new
+      # index操控指针走的步数，若要在13后添加一个，从dummyhead最多走4步也就是size=4.所以n 不能大于self.size
+      if index < 0 or index > self.size :
+        return #直接停止
+      cur = self.dummy_head
+      new_node= ListNode(val)
+      for i in range(index): #如在index=4插入，从dummyhead移动4次就到了13
+        cur = cur.next 
+      new_node.next = cur.next #如果要在index3加入一个，一定要先让新节点连接后一个，也就是之前的13，不然就有头无尾
+      cur.next =new_node
+      self.size +=1
 
-
+  
     def deleteAtIndex(self, index: int) -> None:
-
+      if index < 0 or index > (self.size -1):#判断下标有效
+        # 如果目前是[10,11,12,13], 最多index到3，也就是size-1
+        return 
+      cur = self.dummy_head
+      for i in range(index):
+        cur = cur.next #移动到要delete的前一个。如delete 11,cur就从dummyhead移动到10
+      cur.next =cur.next.next#删除
+      self.size -=1
 
 
 # Your MyLinkedList object will be instantiated and called as such:

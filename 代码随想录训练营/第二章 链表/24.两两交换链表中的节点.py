@@ -57,5 +57,26 @@
 #         self.next = next
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return None #[]
+        
+        dummy = ListNode(next=head)
+        
+        current = dummy
+
+        while current.next and current.next.next:
+            temp1= current.next
+            temp2 = current.next.next.next
+
+            current.next = current.next.next #让dummy->2，此时dummy->已经断了 | 1->4
+            #让2 指向1 
+            current.next.next = temp1  # ||4->3
+            #让1指向3 
+            temp1.next= temp2 #3-》null
+        
+            #移动指针
+            current = current.next.next # 此时指向1，开始下一轮循环。此时 dummy->2->1->3->4->null
+        return dummy.next
+
 # @lc code=end
 

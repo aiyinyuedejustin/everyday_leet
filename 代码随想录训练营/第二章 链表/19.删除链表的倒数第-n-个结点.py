@@ -63,5 +63,53 @@
 #         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # #删第n个，current指针一定是他前一个，然后让current指向n.next。那么n就被删除了
+        # #继续虚拟头节点
+        # #且要快慢指针
+
+        # #定义fast指针和slow指针，初始值为虚拟头结点
+        # # fast首先走n + 1步 ，为什么是n+1呢，因为只有这样同时移动的时候
+        # # slow才能指向删除节点的上一个节点（方便做删除操作），如图
+        # #fast和slow同时移动，直到fast指向末尾
+
+
+
+
+        # dum_head = ListNode(next=head)
+
+        # slow = dum_head
+        # fast = dum_head
+
+        # # 快指针比慢指针快 n+1 步
+        # for i in range(n+1):
+        #     fast = fast.next#走n+1次
+        
+        # # 移动两个指针，直到快速指针到达链表的末尾是null停止
+        # while fast:
+        #     slow = slow.next
+        #     fast = fast.next
+        
+        # # 通过更新第 (n-1) 个节点的 next 指针删除第 n 个节点
+        # slow.next = slow.next.next
+        
+        # return dum_head.next
+
+        #快指针比慢指针先走n+1步
+        # 同时从dummyhead 出发
+
+        dummy = ListNode(next=head)
+        fast = dummy
+        slow = dummy
+
+        for i in range(n+1):
+            fast = fast.next
+        
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        
+        slow.next = slow.next.next
+
+        return dummy.next
 # @lc code=end
 

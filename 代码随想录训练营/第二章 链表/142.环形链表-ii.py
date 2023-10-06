@@ -81,6 +81,43 @@
 
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        # https://www.yuque.com/xiaoshan_wgo/alog/pcenhscg4tmx6ogz#tqtld
+        #双指针判断是否有环
+        #快指针每次走2个，慢指针每次1个。因此快指针每次相对慢指针走1个节点，一定能相遇。
+        # 快指针肯定先进入环，
+
+        fast = head
+        slow = head
+
+         #快指针一次2个，所以他的next也要判断不为空，这才是有环
+        while fast and fast.next: 
+            fast = fast.next.next # 如果链表没有环，fast 指针会首先到达链表的末尾，即 fast 或 fast.next 会变成 None。
+            slow = slow.next
+
+        # 在这种情况下，while fast and fast.next: 循环会停止，算法会返回 None，表示链表没有环。
+         # If there is a cycle, the slow and fast pointers will eventually meet
+          #相遇了
+        
+            if fast == slow:
+                point1 = fast
+                point2 = head
+      # Move one of the pointers back to the start of the list
+               #两个index
+             
+             #让他们每次都走一样的步长，最终再次相遇一定是入口处(x=z, 因此每次移动一样的步长，总会遇到的)
+                  #一次走一步
+                while point1 != point2:
+                    point1 = point1.next
+                    point2 = point2.next
+                
+                return point1
+  
+          
+                  
+             #已经是 入口处
+        # If there is no cycle, return None
+        return None
         
 # @lc code=end
 

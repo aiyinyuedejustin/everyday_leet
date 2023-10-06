@@ -64,5 +64,20 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        #是单纯翻转，不是交叉反转哦
+
+        ##第一次让1 指向None ，第二次让2 指向1， 最后return pre就是5 就是新的head
+
+        cur = head
+        pre = None
+        while cur:
+            temp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = temp
+        return pre
+
+
 # @lc code=end
 
