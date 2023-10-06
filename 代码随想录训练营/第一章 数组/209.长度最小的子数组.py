@@ -65,5 +65,26 @@
 # @lc code=start
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+
+        l = r = 0
+        cur_sum = 0 
+
+        min_length = 10000000  #有的test case有几千个数字，所以一定要初始化大一点
+        while r < len(nums):
+
+            cur_sum += nums[r]
+            
+        
+
+            while cur_sum >= target:
+
+                min_length = min(min_length, r-l+1)
+                cur_sum -= nums[l]
+                l +=1
+            r+=1
+        
+        return min_length if min_length != 10000000 else 0 
+    
+
 # @lc code=end
 

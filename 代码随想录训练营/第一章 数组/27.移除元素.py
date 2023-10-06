@@ -75,5 +75,27 @@
 # @lc code=start
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
+        # #快慢指针思想，快指针一直动，如果遇到不是val这个值，就把这个值付给慢指针，完成覆盖。（注意数组不是真删除，而是把所有元素往前平移即可）
+        # #版本2 用while
+        # slow =0 
+        # fast =0
+        # length = len(nums)
+        # while fast < length: # index不能超过，不然报错
+        #     if nums[fast] != val:
+        #         nums[slow] = nums[fast]
+        #         slow =slow+1
+        #     fast = fast +1# 手动每次给fast+1
+        # return slow #最后执行slow+1，就已经变成lengh（新数组）了
+
+        fast, slow = 0,0
+        while fast <len(nums):
+
+            if nums[fast]!= val:
+                nums[slow]  = nums[fast]
+                slow +=1
+
+            fast +=1
+        return slow
+
 # @lc code=end
 
