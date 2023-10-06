@@ -12,7 +12,7 @@
 # Total Accepted:    252.5K
 # Total Submissions: 730.6K
 # Testcase Example:  '["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]\n' +
-  '[[],[1],[3],[1,2],[1],[1],[1]]'
+  # '[[],[1],[3],[1,2],[1],[1],[1]]'
 #
 # 你可以选择使用单链表或者双链表，设计并实现自己的链表。
 # 
